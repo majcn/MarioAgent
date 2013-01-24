@@ -42,7 +42,7 @@ def get_mario(monsters):
 def get_world(observation):
     monsters = get_monsters(observation)
     mario = get_mario(monsters)
-    mPos = observation.charArray.index("M")
+    mPos = list(observation.charArray).index("M")
     w = ""
     for i in range(-4, 5):
         t_pos = i*22+mPos
