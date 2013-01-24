@@ -40,6 +40,9 @@ def get_mario(monsters):
         return None
     
 def get_world(observation):
+    #FALLBACK
+    if 'M' not in list(observation.charArray):
+        return "", (-1, -1, "STD", False), None
     monsters = get_monsters(observation)
     mario = get_mario(monsters)
     mPos = list(observation.charArray).index("M")
@@ -182,8 +185,9 @@ class MajcnAgent(Agent):
             
     
     def get_action(self, observation):
-        w, wof, self.mario = get_world(observation)
-        
+        w, wof, m = get_world(observation)
+        if m:
+            self.mario = m
         if wof in self.q:
             action = self.getActionArray(argmax(self.q[wof]))
             if w not in self.q:
